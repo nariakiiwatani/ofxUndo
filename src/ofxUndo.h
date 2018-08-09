@@ -21,36 +21,27 @@ public:
 	}
 	bool undo() {
 		if(!canUndo()) return false;
-		if(last_action_ == UNDO) {
+		if(last_action_ == UNDO && undo_history_.size() > 1) {
 			undo2redo();
 		}
-		auto c = undo_history_.top();
+		notify(undo_history_.top());
 		last_action_ = UNDO;
-		ofNotifyEvent(undo_event_, c);
-		static_cast<Context&>(*this) = c;
 		return true;
 	}
 	bool redo() {
 		if(!canRedo()) return false;
-		if(last_action_ == REDO) {
+		if(last_action_ == REDO && redo_history_.size() > 1) {
 			redo2undo();
 		}
-		auto c = redo_history_.top();
+		notify(redo_history_.top());
 		last_action_ = REDO;
-		ofNotifyEvent(redo_event_, c);
-		static_cast<Context&>(*this) = c;
 		return true;
 	}
-	bool canUndo() const {
-		return undo_history_.size() > (last_action_==UNDO?1:0);
-	}
-	bool canRedo() const {
-		return redo_history_.size() > (last_action_==REDO?1:0);
-	}
-	ofEvent<Context>& undoEvent() { return undo_event_; }
-	ofEvent<Context>& redoEvent() { return redo_event_; }
+	bool canUndo() const { return !undo_history_.empty(); }
+	bool canRedo() const { return !redo_history_.empty(); }
+	ofEvent<Context>& restoreEvent() { return restore_event_; }
 protected:
-	ofEvent<Context> undo_event_, redo_event_;
+	ofEvent<Context> restore_event_;
 	std::stack<Context> undo_history_, redo_history_;
 	enum Action {
 		STORE,
@@ -69,6 +60,9 @@ protected:
 		auto c = redo_history_.top();
 		redo_history_.pop();
 		undo_history_.push(c);
+	}
+	void notify(Context &c) {
+		ofNotifyEvent(restore_event_, c);
 	}
 };
 }}
