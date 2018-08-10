@@ -8,6 +8,7 @@ template<typename Data>
 class Manager
 {
 public:
+	void store(Data &data);
 	void store();
 	void undo();
 	void redo();
@@ -21,6 +22,8 @@ public:
 
 	void clearRedo();
 protected:
+	virtual void onStore(Data &data){}
+	virtual void onRestore(const Data &data){}
 	std::deque<Data> history_;
 	std::size_t current_index_;
 	enum Action {
@@ -35,12 +38,24 @@ protected:
 	int getUndoLength() const { return current_index_; }
 	int getRedoLength() const { return history_.size()-current_index_; }
 };
-	
+
+template<typename Data>
+void Manager<Data>::store(Data &data)
+{
+	history_.emplace_back(data);
+	onStore(data);
+	store_event_.notify(data);
+	++current_index_;
+	last_action_ = OTHER;
+}
+
 template<typename Data>
 void Manager<Data>::store()
 {
 	history_.emplace_back(Data());
-	store_event_.notify(history_.back());
+	auto &data = history_.back();
+	onStore(data);
+	store_event_.notify(data);
 	++current_index_;
 	last_action_ = OTHER;
 }
@@ -51,7 +66,9 @@ void Manager<Data>::undo()
 	if(last_action_ == UNDO) {
 		--current_index_;
 	}
-	restore_event_.notify(history_[current_index_-1]);
+	auto &data = history_[current_index_-1];
+	onRestore(data);
+	restore_event_.notify(data);
 	last_action_ = UNDO;
 }
 template<typename Data>
@@ -60,7 +77,9 @@ void Manager<Data>::redo()
 	if(last_action_ == REDO) {
 		++current_index_;
 	}
-	restore_event_.notify(history_[current_index_]);
+	auto &data = history_[current_index_];
+	onRestore(data);
+	restore_event_.notify(data);
 	last_action_ = REDO;
 }
 template<typename Data>
