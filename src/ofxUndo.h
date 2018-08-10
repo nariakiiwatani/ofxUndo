@@ -42,7 +42,9 @@ void Manager<Context, History>::activateAllHistory()
 {
 	current_index_ = history_.size();
 	last_action_ = EDIT;
-	undo();
+	if(canUndo()) {
+		undo();
+	}
 }
 
 template<typename Context, typename History>
