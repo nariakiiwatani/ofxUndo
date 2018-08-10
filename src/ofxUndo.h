@@ -8,6 +8,7 @@ template<typename Context, typename History=std::vector<Context>>
 class Manager
 {
 public:
+	void setEdited();
 	void store(const Context &c);
 	void clear();
 	Context& undo();
@@ -24,6 +25,7 @@ protected:
 	int getUndoLength() const { return current_index_; }
 	int getRedoLength() const { return history_.size()-current_index_; }
 	enum Action {
+		EDIT,
 		STORE,
 		UNDO,
 		REDO,
@@ -33,13 +35,21 @@ protected:
 };
 
 template<typename Context, typename History>
-void Manager<Context, History>::store(const Context &c)
+void Manager<Context, History>::setEdited()
 {
 	if(last_action_ == REDO) {
 		++current_index_;
 	}
-	history_.resize(current_index_++);
+	history_.resize(current_index_);
+	last_action_ = EDIT;
+}
+
+template<typename Context, typename History>
+void Manager<Context, History>::store(const Context &c)
+{
+	setEdited();
 	history_.push_back(c);
+	++current_index_;
 	last_action_ = STORE;
 }
 template<typename Context, typename History>
