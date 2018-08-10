@@ -1,19 +1,26 @@
 #pragma once
 
 #include "ofxUndo.h"
-#include "ofxUndoHistoryInterface.h"
 
 namespace ofx { namespace undo {
-template<typename Context, typename History>
-class Simple : public Manager<Context, History>, public Context
+template<typename Data>
+class Simple : public Manager<Data>, public Data
 {
 public:
-	Simple() { ofAddListener(Manager<Context,History>::restoreEvent(), this, &Simple::setValue); }
-	~Simple() { ofRemoveListener(Manager<Context,History>::restoreEvent(), this, &Simple::setValue); }
-	void store() { Manager<Context, History>::store(static_cast<Context&>(*this)); };
+	Simple() {
+		getter_ = [&](Data &data) { data = *this; };
+		setter_ = [&](const Data &data) { static_cast<Data&>(*this) = data; };
+		Manager<Data>::storeEvent().add(getter_, OF_EVENT_ORDER_AFTER_APP);
+		Manager<Data>::restoreEvent().add(setter_, OF_EVENT_ORDER_AFTER_APP);
+	}
+	~Simple() {
+		Manager<Data>::storeEvent().remove(getter_, OF_EVENT_ORDER_AFTER_APP);
+		Manager<Data>::restoreEvent().remove(setter_, OF_EVENT_ORDER_AFTER_APP);
+	}
 private:
-	void setValue(Context &c) { static_cast<Context&>(*this) = c; }
+	std::function<void(Data&)> getter_;
+	std::function<void(const Data&)> setter_;
 };
 }}
-template<typename Context, typename History=ofx::undo::history::Vector<Context>>
-using ofxUndo = ofx::undo::Simple<Context, History>;
+template<typename Data>
+using ofxUndo = ofx::undo::Simple<Data>;

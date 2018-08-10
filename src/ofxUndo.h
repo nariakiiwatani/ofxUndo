@@ -4,105 +4,79 @@
 
 namespace ofx { namespace undo {
 
-template<typename Context, typename History>
+template<typename Data>
 class Manager
 {
 public:
-	void activateAllHistory();
-	void setEdited();
-	void store(const Context &c);
+	void store();
+	void undo();
+	void redo();
+	bool canUndo() const { return getUndoLength() > (last_action_==UNDO?1:0); }
+	bool canRedo() const { return getRedoLength() > (last_action_==REDO?1:0); }
+	
 	void clear();
-	Context& undo();
-	Context& redo();
-	bool canUndo() const;
-	bool canRedo() const;
-	ofEvent<Context>& restoreEvent() { return restore_event_; }
-	History& getHistory() { return history_; }
-	std::size_t getCurrentIndex() const { return current_index_; }
-protected:
-	History history_;
-	std::size_t current_index_ = 0;
-	ofEvent<Context> restore_event_;
+	
+	ofEvent<Data>& storeEvent() { return store_event_; }
+	ofEvent<const Data>& restoreEvent() { return restore_event_; }
 
-	void notify(Context &c) { ofNotifyEvent(restore_event_, c); }
+	void clearRedo();
+protected:
+	std::deque<Data> history_;
+	std::size_t current_index_;
+	enum Action {
+		UNDO, REDO, OTHER
+	};
+	Action last_action_ = OTHER;
+
+	ofEvent<Data> store_event_;
+	ofEvent<const Data> restore_event_;
+	
+protected:
 	int getUndoLength() const { return current_index_; }
 	int getRedoLength() const { return history_.size()-current_index_; }
-	enum Action {
-		EDIT,
-		STORE,
-		UNDO,
-		REDO,
-		CLEAR
-	};
-	Action last_action_=CLEAR;
 };
-
-template<typename Context, typename History>
-void Manager<Context, History>::activateAllHistory()
+	
+template<typename Data>
+void Manager<Data>::store()
 {
-	current_index_ = history_.size();
-	last_action_ = EDIT;
-	if(canUndo()) {
-		undo();
-	}
-}
-
-template<typename Context, typename History>
-void Manager<Context, History>::setEdited()
-{
-	if(last_action_ == REDO) {
-		++current_index_;
-	}
-	history_.resize(current_index_);
-	last_action_ = EDIT;
-}
-
-template<typename Context, typename History>
-void Manager<Context, History>::store(const Context &c)
-{
-	setEdited();
-	history_.push(c);
+	history_.emplace_back(Data());
+	store_event_.notify(history_.back());
 	++current_index_;
-	last_action_ = STORE;
+	last_action_ = OTHER;
 }
-template<typename Context, typename History>
-void Manager<Context, History>::clear()
-{
-	history_.clear();
-	current_index_ = 0;
-	last_action_ = CLEAR;
-}
-template<typename Context, typename History>
-Context& Manager<Context, History>::undo()
+
+template<typename Data>
+void Manager<Data>::undo()
 {
 	if(last_action_ == UNDO) {
 		--current_index_;
 	}
-	Context &&c = history_[current_index_-1];
-	notify(c);
+	restore_event_.notify(history_[current_index_-1]);
 	last_action_ = UNDO;
-	return c;
 }
-template<typename Context, typename History>
-Context& Manager<Context, History>::redo()
+template<typename Data>
+void Manager<Data>::redo()
 {
 	if(last_action_ == REDO) {
 		++current_index_;
 	}
-	Context &&c = history_[current_index_];
-	notify(c);
+	restore_event_.notify(history_[current_index_]);
 	last_action_ = REDO;
-	return c;
 }
-template<typename Context, typename History>
-bool Manager<Context, History>::canUndo() const
+template<typename Data>
+void Manager<Data>::clear()
 {
-	return getUndoLength() > (last_action_==UNDO?1:0);
+	history_.clear();
+	current_index_ = 0;
+	last_action_ = OTHER;
 }
-template<typename Context, typename History>
-bool Manager<Context, History>::canRedo() const
-{
-	return getRedoLength() > (last_action_==REDO?1:0);
+template<typename Data>
+void Manager<Data>::clearRedo() {
+	if(last_action_ == REDO) {
+		++current_index_;
+	}
+	history_.resize(current_index_);
+	last_action_ = OTHER;
 }
-	
+
 }}
