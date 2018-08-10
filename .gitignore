@@ -1,3 +1,5 @@
+*.app
+
 ### https://raw.github.com/github/gitignore/ade08baee2cf60afd794432b3e779fe5844c545d/Global/Xcode.gitignore
 
 # Xcode
@@ -33,7 +35,8 @@ DerivedData/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
