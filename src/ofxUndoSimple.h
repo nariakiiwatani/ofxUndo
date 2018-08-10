@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofxUndo.h"
+#include "ofxUndoHistoryInterface.h"
 
 namespace ofx { namespace undo {
 template<typename Context, typename History>
@@ -17,5 +18,5 @@ private:
 	void setValue(Context &c) { static_cast<Context&>(*this) = c; }
 };
 }}
-template<typename Context, typename History=std::vector<Context>>
+template<typename Context, typename History=ofx::undo::history::Vector<Context>>
 using ofxUndo = ofx::undo::Simple<Context, History>;

@@ -44,6 +44,7 @@
 /* Begin PBXFileReference section */
 		81B41B9F211BEC8400E4A601 /* ofxUndo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxUndo.h; path = ../src/ofxUndo.h; sourceTree = "<group>"; };
 		81B41BA5211D1EED00E4A601 /* ofxUndoSimple.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxUndoSimple.h; path = ../src/ofxUndoSimple.h; sourceTree = "<group>"; };
+		81B41BA6211D1F8200E4A601 /* ofxUndoHistoryInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxUndoHistoryInterface.h; path = ../src/ofxUndoHistoryInterface.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* exampleDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = exampleDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -86,6 +87,7 @@
 			children = (
 				81B41B9F211BEC8400E4A601 /* ofxUndo.h */,
 				81B41BA5211D1EED00E4A601 /* ofxUndoSimple.h */,
+				81B41BA6211D1F8200E4A601 /* ofxUndoHistoryInterface.h */,
 			);
 			name = src;
 			sourceTree = "<group>";

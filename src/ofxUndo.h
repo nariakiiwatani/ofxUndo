@@ -48,7 +48,7 @@ template<typename Context, typename History>
 void Manager<Context, History>::store(const Context &c)
 {
 	setEdited();
-	history_.push_back(c);
+	history_.push(c);
 	++current_index_;
 	last_action_ = STORE;
 }
@@ -65,7 +65,7 @@ Context& Manager<Context, History>::undo()
 	if(last_action_ == UNDO) {
 		--current_index_;
 	}
-	Context &c = history_.at(current_index_-1);
+	Context &c = history_[current_index_-1];
 	notify(c);
 	last_action_ = UNDO;
 	return c;
@@ -76,7 +76,7 @@ Context& Manager<Context, History>::redo()
 	if(last_action_ == REDO) {
 		++current_index_;
 	}
-	Context &c = history_.at(current_index_);
+	Context &c = history_[current_index_];
 	notify(c);
 	last_action_ = REDO;
 	return c;
