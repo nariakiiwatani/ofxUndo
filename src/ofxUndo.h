@@ -8,6 +8,7 @@ template<typename Context, typename History>
 class Manager
 {
 public:
+	void activateAllHistory();
 	void setEdited();
 	void store(const Context &c);
 	void clear();
@@ -16,6 +17,8 @@ public:
 	bool canUndo() const;
 	bool canRedo() const;
 	ofEvent<Context>& restoreEvent() { return restore_event_; }
+	History& getHistory() { return history_; }
+	std::size_t getCurrentIndex() const { return current_index_; }
 protected:
 	History history_;
 	std::size_t current_index_ = 0;
@@ -33,6 +36,14 @@ protected:
 	};
 	Action last_action_=CLEAR;
 };
+
+template<typename Context, typename History>
+void Manager<Context, History>::activateAllHistory()
+{
+	current_index_ = history_.size();
+	last_action_ = EDIT;
+	undo();
+}
 
 template<typename Context, typename History>
 void Manager<Context, History>::setEdited()
@@ -65,7 +76,7 @@ Context& Manager<Context, History>::undo()
 	if(last_action_ == UNDO) {
 		--current_index_;
 	}
-	Context &c = history_[current_index_-1];
+	Context &&c = history_[current_index_-1];
 	notify(c);
 	last_action_ = UNDO;
 	return c;
@@ -76,7 +87,7 @@ Context& Manager<Context, History>::redo()
 	if(last_action_ == REDO) {
 		++current_index_;
 	}
-	Context &c = history_[current_index_];
+	Context &&c = history_[current_index_];
 	notify(c);
 	last_action_ = REDO;
 	return c;
