@@ -16,8 +16,7 @@ public:
 		}
 	}
 	void push(const std::string &str) {
-		std::hash<std::string> hash_fn;
-		std::string filename = ofToString(hash_fn(str))+".txt";
+		std::string filename = ofGetTimestampString("%Y%m%d_%H%M_%S%i")+".txt";
 		ofBufferToFile(ofFilePath::join(directory_.path(), filename), ofBuffer(str.c_str(), str.size()), false);
 		base_class::push(filename);
 	}
