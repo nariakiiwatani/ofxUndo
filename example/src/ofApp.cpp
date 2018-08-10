@@ -12,20 +12,24 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofDrawCircle(mouse_history_, 10);
+	ofDrawCircle(position_, 10);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 	switch(key) {
 		case 'u':
-			mouse_history_.undo();
+			if(undo_.canUndo()) {
+				position_ = undo_.undo();
+			}
 			break;
 		case 'r':
-			mouse_history_.redo();
+			if(undo_.canRedo()) {
+				position_ = undo_.redo();
+			}
 			break;
 		case 'c':
-			mouse_history_.clear();
+			undo_.clear();
 			break;
 	}
 }
@@ -37,7 +41,8 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	mouse_history_.set(x,y);
+	position_.set(x,y);
+	undo_.setEdited();
 }
 
 //--------------------------------------------------------------
@@ -47,7 +52,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	mouse_history_.store(ofVec2f(x,y));
+	undo_.store(position_);
 }
 
 //--------------------------------------------------------------

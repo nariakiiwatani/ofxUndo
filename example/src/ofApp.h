@@ -22,5 +22,6 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 private:
-	ofxUndo<ofVec2f> mouse_history_;
+	ofVec2f position_;
+	ofxUndo<ofVec2f> undo_;
 };
