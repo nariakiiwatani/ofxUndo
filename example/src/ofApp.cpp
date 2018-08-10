@@ -19,17 +19,17 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
 	switch(key) {
 		case 'u':
-			if(undo_.canUndo()) {
-				position_ = undo_.undo();
+			if(position_.canUndo()) {
+				position_.undo();
 			}
 			break;
 		case 'r':
-			if(undo_.canRedo()) {
-				position_ = undo_.redo();
+			if(position_.canRedo()) {
+				position_.redo();
 			}
 			break;
 		case 'c':
-			undo_.clear();
+			position_.clear();
 			break;
 	}
 }
@@ -42,7 +42,7 @@ void ofApp::keyReleased(int key){
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
 	position_.set(x,y);
-	undo_.setEdited();
+	position_.setEdited();
 }
 
 //--------------------------------------------------------------
@@ -52,7 +52,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	undo_.store(position_);
+	position_.store(position_);
 }
 
 //--------------------------------------------------------------

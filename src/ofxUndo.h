@@ -4,7 +4,7 @@
 
 namespace ofx { namespace undo {
 
-template<typename Context, typename History=std::vector<Context>>
+template<typename Context, typename History>
 class Manager
 {
 public:
@@ -91,6 +91,5 @@ bool Manager<Context, History>::canRedo() const
 {
 	return getRedoLength() > (last_action_==REDO?1:0);
 }
+	
 }}
-template<typename Context, typename History=std::vector<Context>>
-using ofxUndo = ofx::undo::Manager<Context, History>;
