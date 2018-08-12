@@ -10,10 +10,10 @@ class Manager
 public:
 	void store(Data &data);
 	void store();
-	void undo();
-	void redo();
-	bool canUndo() const { return getUndoLength() > (last_action_==UNDO?1:0); }
-	bool canRedo() const { return getRedoLength() > (last_action_==REDO?1:0); }
+	bool undo();
+	bool redo();
+	bool canUndo() const { return getUndoLength() > 0; }
+	bool canRedo() const { return getRedoLength() > 0; }
 	
 	void clear();
 	
@@ -35,8 +35,8 @@ protected:
 	ofEvent<const Data> restore_event_;
 	
 protected:
-	int getUndoLength() const { return current_index_; }
-	int getRedoLength() const { return history_.size()-current_index_; }
+	int getUndoLength() const { return current_index_-(last_action_==UNDO?1:0); }
+	int getRedoLength() const { return history_.size()-current_index_-(last_action_==REDO?1:0); }
 };
 
 template<typename Data>
@@ -61,8 +61,9 @@ void Manager<Data>::store()
 }
 
 template<typename Data>
-void Manager<Data>::undo()
+bool Manager<Data>::undo()
 {
+	if(!canUndo()) return false;
 	if(last_action_ == UNDO) {
 		--current_index_;
 	}
@@ -70,10 +71,12 @@ void Manager<Data>::undo()
 	onRestore(data);
 	restore_event_.notify(data);
 	last_action_ = UNDO;
+	return true;
 }
 template<typename Data>
-void Manager<Data>::redo()
+bool Manager<Data>::redo()
 {
+	if(!canRedo()) return false;
 	if(last_action_ == REDO) {
 		++current_index_;
 	}
@@ -81,6 +84,7 @@ void Manager<Data>::redo()
 	onRestore(data);
 	restore_event_.notify(data);
 	last_action_ = REDO;
+	return true;
 }
 template<typename Data>
 void Manager<Data>::clear()

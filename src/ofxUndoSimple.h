@@ -7,7 +7,7 @@ template<typename Data>
 class Simple : public Manager<Data>, public Data
 {
 protected:
-	void onStore(Data &data) { data = *this; }
+	void onStore(Data &data) { data = static_cast<Data&>(*this); }
 	void onRestore(const Data &data){ static_cast<Data&>(*this) = data; }
 };
 }}
