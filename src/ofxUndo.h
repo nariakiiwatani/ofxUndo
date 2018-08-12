@@ -138,14 +138,4 @@ void Manager<Data>::clearRedo() {
 	last_action_ = OTHER;
 }
 	
-// =========
-template<typename Data>
-class Simple : public Manager<Data>, public Data
-{
-protected:
-	Data createUndo() const { return static_cast<Data>(*this); }
-	void loadUndo(const Data &data){ static_cast<Data&>(*this) = data; }
-};
 }}
-template<typename Data>
-using ofxUndo = ofx::undo::Simple<Data>;
