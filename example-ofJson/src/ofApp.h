@@ -1,34 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxUndoSimple.h"
-#include "ofJson.h"
-
-class ofJsonHistory {
-public:
-	void push(const ofJson &json) {
-		json_.push_back(json);
-	}
-	std::size_t size() const {
-		return json_.size();
-	}
-	ofJson& operator[](std::size_t index) {
-		return json_[index];
-	}
-	void clear() {
-		json_.clear();
-	}
-	void resize(std::size_t size) {
-		while(json_.size() < size) {
-			json_.push_back(ofJson());
-		}
-		while(json_.size() > size) {
-			json_.erase(json_.size()-1);
-		}
-	}
-private:
-	ofJson json_;
-};
+#include "ofxUndoJson.h"
 
 class ofApp : public ofBaseApp{
 	
@@ -49,5 +22,20 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 private:
-	ofx::undo::Simple<ofJson, ofJsonHistory> undo_;
+	struct MyStruct {
+		ofVec2f position;
+		float size;
+		void loadJson(const ofJson &json) {
+			position.set(json["position"]["x"],json["position"]["y"]);
+			size = json["size"];
+		}
+		ofJson createJson() const {
+			ofJson json;
+			json["position"]["x"] = position.x;
+			json["position"]["y"] = position.y;
+			json["size"] = size;
+			return json;
+		}
+	};
+	ofxUndoJson<MyStruct> undo_;
 };

@@ -18,15 +18,11 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 	switch(key) {
-		case 'u':
-			if(position_.canUndo()) {
-				position_.undo();
-			}
+		case OF_KEY_LEFT:
+			position_.undo();
 			break;
-		case 'r':
-			if(position_.canRedo()) {
-				position_.redo();
-			}
+		case OF_KEY_RIGHT:
+			position_.redo();
 			break;
 		case 'c':
 			position_.clear();
@@ -42,7 +38,7 @@ void ofApp::keyReleased(int key){
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
 	position_.set(x,y);
-	position_.setEdited();
+	position_.clearRedo();
 }
 
 //--------------------------------------------------------------

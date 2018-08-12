@@ -1,32 +1,24 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxUndoSimple.h"
-#include "ofxUndoHistoryInterface.h"
+#include "ofxUndoHistoryToFile.h"
 #include "ofFileUtils.h"
 
-class StringHistoryToFile : public ofx::undo::history::Vector<std::string> {
+class StringWithHistory : public ofxUndoFile
+{
 public:
-	using base_class = ofx::undo::history::Vector<std::string>;
-	void setDirectory(const std::string &path) {
-		directory_.open(path);
-		clear();
-		for(auto && f : directory_) {
-			base_class::push(f.path());
-		}
+	void save(const std::filesystem::path &path) const {
+		ofBufferToFile(path, ofBuffer(str_.c_str(), str_.size()), false);
 	}
-	void push(const std::string &str) {
-		std::string filename = ofGetTimestampString("%Y%m%d_%H%M_%S%i")+".txt";
-		ofBufferToFile(ofFilePath::join(directory_.path(), filename), ofBuffer(str.c_str(), str.size()), false);
-		base_class::push(filename);
+	void load(const std::filesystem::path &path) {
+		str_ = ofBufferFromFile(path, false).getText();
 	}
-	std::string operator[](std::size_t index) const {
-		return ofBufferFromFile(base_class::operator[](index), false).getText();
+	operator std::string&() {
+		return str_;
 	}
 private:
-	ofDirectory directory_;
+	std::string str_;
 };
-
 class ofApp : public ofBaseApp{
 	
 public:
@@ -46,5 +38,5 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 private:
-	ofx::undo::Simple<std::string, StringHistoryToFile> undo_;
+	StringWithHistory undo_;
 };

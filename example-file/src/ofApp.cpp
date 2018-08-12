@@ -2,8 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	undo_.getHistory().setDirectory("log");
-	undo_.activateAllHistory();
+	undo_.setDirectory("log");
+	undo_.redo(undo_.getRedoLength());
 }
 
 //--------------------------------------------------------------
@@ -13,7 +13,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofDrawBitmapString(undo_, 10,10);
+	ofDrawBitmapString((std::string&)undo_, 10,10);
 }
 
 //--------------------------------------------------------------
@@ -23,18 +23,14 @@ void ofApp::keyPressed(int key){
 			undo_.store();
 			break;
 		case OF_KEY_LEFT:
-			if(undo_.canUndo()) {
-				undo_.undo();
-			}
+			undo_.undo();
 			break;
 		case OF_KEY_RIGHT:
-			if(undo_.canRedo()) {
-				undo_.redo();
-			}
+			undo_.redo();
 			break;
 		default:
 			(std::string&)undo_ += ofToString((char)key);
-			undo_.setEdited();
+			undo_.clearRedo();
 			break;
 	}
 }

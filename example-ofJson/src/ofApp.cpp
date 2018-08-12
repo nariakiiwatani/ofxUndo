@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	(ofJson&)undo_ = "";
+
 }
 
 //--------------------------------------------------------------
@@ -12,7 +12,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofDrawBitmapString(undo_, 10,10);
+	ofDrawCircle(undo_.position, undo_.size);
 }
 
 //--------------------------------------------------------------
@@ -22,18 +22,10 @@ void ofApp::keyPressed(int key){
 			undo_.store();
 			break;
 		case OF_KEY_LEFT:
-			if(undo_.canUndo()) {
-				undo_.undo();
-			}
+			undo_.undo();
 			break;
 		case OF_KEY_RIGHT:
-			if(undo_.canRedo()) {
-				undo_.redo();
-			}
-			break;
-		default:
-			(ofJson&)undo_ = undo_.get<std::string>() + ofToString((char)key);
-			undo_.setEdited();
+			undo_.redo();
 			break;
 	}
 }
@@ -45,12 +37,16 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+	if(!ofGetMousePressed()) {
+		undo_.position.set(x,y);
+		undo_.clearRedo();
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+	undo_.size += y-ofGetPreviousMouseY();
+	undo_.clearRedo();
 }
 
 //--------------------------------------------------------------
@@ -60,7 +56,7 @@ void ofApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+	undo_.store();
 }
 
 //--------------------------------------------------------------

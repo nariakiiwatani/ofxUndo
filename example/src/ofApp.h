@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxUndoSimple.h"
+#include "ofxUndo.h"
 
 class ofApp : public ofBaseApp{
 	
