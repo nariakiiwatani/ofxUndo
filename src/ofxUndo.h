@@ -8,17 +8,19 @@ template<typename Data>
 class Manager
 {
 public:
-	void store(Data &data);
+	void store(const Data &data);
 	void store();
 	int undo(int times=1);
 	int redo(int times=1);
 	bool canUndo(int times=1, int *maximum=nullptr) const;
 	bool canRedo(int times=1, int *maximum=nullptr) const;
-	
+	int getUndoLength() const { return current_index_-(last_action_==UNDO?1:0); }
+	int getRedoLength() const { return history_.size()-current_index_-(last_action_==REDO?1:0); }
+
 	void setHistoryLengthLimit(std::size_t length);
 	void clear();
 	
-	ofEvent<Data>& storeEvent() { return store_event_; }
+	ofEvent<const Data>& storeEvent() { return store_event_; }
 	ofEvent<const Data>& restoreEvent() { return restore_event_; }
 
 	void clearRedo();
@@ -33,28 +35,28 @@ protected:
 	};
 	Action last_action_ = OTHER;
 
-	ofEvent<Data> store_event_;
+	ofEvent<const Data> store_event_;
 	ofEvent<const Data> restore_event_;
 	
 protected:
-	int getUndoLength() const { return current_index_-(last_action_==UNDO?1:0); }
-	int getRedoLength() const { return history_.size()-current_index_-(last_action_==REDO?1:0); }
-	int deleteUndo(int length) {
+	int deleteOldHistory(int length) {
 		int result = 0;
 		while(length-->0) {
 			if(history_.empty()) break;
 			history_.pop_front();
 			++result;
 		}
-		current_index_ = max<int>(0, current_index_-result);
+		current_index_ = std::max<int>(0, current_index_-result);
 		return result;
 	}
 };
 
 template<typename Data>
-void Manager<Data>::store(Data &data)
+void Manager<Data>::store(const Data &data)
 {
-	if(history_.size() == history_length_limit_) deleteUndo(1);
+	if(history_length_limit_ > 0 && history_.size() == history_length_limit_) {
+		deleteOldHistory(1);
+	}
 	history_.emplace_back(data);
 	store_event_.notify(data);
 	current_index_ = history_.size();
@@ -64,12 +66,8 @@ void Manager<Data>::store(Data &data)
 template<typename Data>
 void Manager<Data>::store()
 {
-	if(history_length_limit_ > 0 && history_.size() == history_length_limit_) deleteUndo(1);
-	history_.emplace_back(createUndo());
-	auto &data = history_.back();
-	store_event_.notify(data);
-	current_index_ = history_.size();
-	last_action_ = OTHER;
+	Data data = createUndo();
+	store(data);
 }
 
 template<typename Data>
@@ -121,7 +119,7 @@ void Manager<Data>::setHistoryLengthLimit(std::size_t length)
 {
 	int sub = history_.size() > length;
 	if(sub) {
-		deleteUndo(sub);
+		deleteOldHistory(sub);
 	}
 	history_length_limit_ = length;
 }
@@ -145,7 +143,7 @@ template<typename Data>
 class Simple : public Manager<Data>, public Data
 {
 protected:
-	Data createUndo() const { return static_cast<Data&>(*this); }
+	Data createUndo() const { return static_cast<Data>(*this); }
 	void loadUndo(const Data &data){ static_cast<Data&>(*this) = data; }
 };
 }}

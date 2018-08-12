@@ -8,42 +8,35 @@ class HistoryToFile : public ofx::undo::Manager<std::filesystem::path>
 {
 public:
 	void setFileExt(const std::string &ext) { extension_ = ext; }
-	void setIOEnabled(bool enabled) { is_enabled_ = enabled; }
-	bool isIOEnabled() const { return is_enabled_; }
 	
-	void setDirectory(const std::filesystem::path &path) {
+	void setDirectory(const std::filesystem::path &path, bool load=true) {
 		clear();
 		directory_.open(path);
-		bool cache = isIOEnabled();
-		setIOEnabled(false);
-		for(auto &&f : directory_) {
-			std::filesystem::path filename(f.getFileName());
-			store(filename);
+		directory_.sortByDate();
+		if(load) {
+			for(auto &&f : directory_) {
+				std::filesystem::path path(ofFilePath::join(directory_.path(), f.getFileName()));
+				store(path);
+			}
 		}
-		setIOEnabled(cache);
 	}
-
 protected:
 	std::filesystem::path createUndo() const {
 		auto path = createFileName(extension_);
-		if(isIOEnabled()) {
-			save(ofFilePath::join(directory_.path(), path));
-		}
+		save(path);
 		return path;
 	}
 	void loadUndo(const std::filesystem::path &path) {
-		if(isIOEnabled()) {
-			load(ofFilePath::join(directory_.path(), path));
-		}
+		load(path);
 	}
 	virtual std::filesystem::path createFileName(const std::string &ext) const {
-		return ofJoinString({ofGetTimestampString("%Y%m%d_%H%M_%S%i"), extension_}, ".");
+		std::string filename = ofJoinString({ofGetTimestampString("%Y%m%d_%H%M_%S%i"), extension_}, ".");
+		return ofFilePath::join(directory_.path(), filename);
 	}
-	virtual void save(const std::filesystem::path &path)=0;
+	virtual void save(const std::filesystem::path &path) const=0;
 	virtual void load(const std::filesystem::path &path)=0;
 	ofDirectory directory_;
 	std::string extension_ = "txt";
-	bool is_enabled_=true;
 };
 }}
 
