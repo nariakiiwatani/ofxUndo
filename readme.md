@@ -2,8 +2,7 @@
 
 undo/redo manager for openFrameworks
 
-## usage
-
+## Usage
 
 ### ofxUndoSimple
 
@@ -24,3 +23,11 @@ Declare ofxUndoJson with typename like `ofxUndoJson<MyStruct>`.
 Then implement `toJson/loadJson` in `MyStruct`.  
 
 __I strongly recommend to use this class with [@2bbb](https://github.com/2bbb)'s [ofxJsonUtils](https://github.com/2bbb/ofxJsonUtils)__
+
+
+## Special Thanks
+
+- [@2bbb](https://github.com/2bbb)
+
+## License
+MIT License.
