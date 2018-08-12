@@ -15,6 +15,7 @@ public:
 	bool canUndo(int times=1, int *maximum=nullptr) const;
 	bool canRedo(int times=1, int *maximum=nullptr) const;
 	
+	void setHistoryLengthLimit(std::size_t length);
 	void clear();
 	
 	ofEvent<Data>& storeEvent() { return store_event_; }
@@ -25,6 +26,7 @@ protected:
 	virtual void onStore(Data &data){}
 	virtual void onRestore(const Data &data){}
 	std::deque<Data> history_;
+	std::size_t history_length_limit_=0;
 	std::size_t current_index_;
 	enum Action {
 		UNDO, REDO, OTHER
@@ -37,26 +39,38 @@ protected:
 protected:
 	int getUndoLength() const { return current_index_-(last_action_==UNDO?1:0); }
 	int getRedoLength() const { return history_.size()-current_index_-(last_action_==REDO?1:0); }
+	int deleteUndo(int length) {
+		int result = 0;
+		while(length-->0) {
+			if(history_.empty()) break;
+			history_.pop_front();
+			++result;
+		}
+		current_index_ = max<int>(0, current_index_-result);
+		return result;
+	}
 };
 
 template<typename Data>
 void Manager<Data>::store(Data &data)
 {
+	if(history_.size() == history_length_limit_) deleteUndo(1);
 	history_.emplace_back(data);
 	onStore(data);
 	store_event_.notify(data);
-	++current_index_;
+	current_index_ = history_.size();
 	last_action_ = OTHER;
 }
 
 template<typename Data>
 void Manager<Data>::store()
 {
+	if(history_length_limit_ > 0 && history_.size() == history_length_limit_) deleteUndo(1);
 	history_.emplace_back(Data());
 	auto &data = history_.back();
 	onStore(data);
 	store_event_.notify(data);
-	++current_index_;
+	current_index_ = history_.size();
 	last_action_ = OTHER;
 }
 
@@ -105,6 +119,16 @@ bool Manager<Data>::canRedo(int times, int *maximum) const
 }
 
 template<typename Data>
+void Manager<Data>::setHistoryLengthLimit(std::size_t length)
+{
+	int sub = history_.size() > length;
+	if(sub) {
+		deleteUndo(sub);
+	}
+	history_length_limit_ = length;
+}
+
+template<typename Data>
 void Manager<Data>::clear()
 {
 	history_.clear();
@@ -113,10 +137,8 @@ void Manager<Data>::clear()
 }
 template<typename Data>
 void Manager<Data>::clearRedo() {
-	if(last_action_ == REDO) {
-		++current_index_;
-	}
-	history_.resize(current_index_);
+	history_.resize(current_index_+(last_action_==REDO?1:0));
+	current_index_ = history_.size();
 	last_action_ = OTHER;
 }
 
