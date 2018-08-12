@@ -7,8 +7,8 @@ template<typename T>
 class Json : public Manager<ofJson>, public T
 {
 public:
-	void onStore(ofJson &data) { data = ((T&)*this).createJson(); }
-	void onRestore(const ofJson &data) { ((T&)*this).loadJson(data); }
+	ofJson createUndo() { return ((T&)*this).createJson(); }
+	void loadUndo(const ofJson &data) { ((T&)*this).loadJson(data); }
 };
 }}
 

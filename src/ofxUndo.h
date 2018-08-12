@@ -23,8 +23,8 @@ public:
 
 	void clearRedo();
 protected:
-	virtual void onStore(Data &data){}
-	virtual void onRestore(const Data &data){}
+	virtual Data createUndo() const { return Data(); }
+	virtual void loadUndo(const Data &data) {}
 	std::deque<Data> history_;
 	std::size_t history_length_limit_=0;
 	std::size_t current_index_;
@@ -56,7 +56,6 @@ void Manager<Data>::store(Data &data)
 {
 	if(history_.size() == history_length_limit_) deleteUndo(1);
 	history_.emplace_back(data);
-	onStore(data);
 	store_event_.notify(data);
 	current_index_ = history_.size();
 	last_action_ = OTHER;
@@ -66,9 +65,8 @@ template<typename Data>
 void Manager<Data>::store()
 {
 	if(history_length_limit_ > 0 && history_.size() == history_length_limit_) deleteUndo(1);
-	history_.emplace_back(Data());
+	history_.emplace_back(createUndo());
 	auto &data = history_.back();
-	onStore(data);
 	store_event_.notify(data);
 	current_index_ = history_.size();
 	last_action_ = OTHER;
@@ -83,7 +81,7 @@ int Manager<Data>::undo(int times)
 	}
 	current_index_ -= times - (last_action_==UNDO?0:1);
 	auto &data = history_[current_index_-1];
-	onRestore(data);
+	loadUndo(data);
 	restore_event_.notify(data);
 	last_action_ = UNDO;
 	return times;
@@ -97,7 +95,7 @@ int Manager<Data>::redo(int times)
 	}
 	current_index_ += times - (last_action_==REDO?0:1);
 	auto &data = history_[current_index_];
-	onRestore(data);
+	loadUndo(data);
 	restore_event_.notify(data);
 	last_action_ = REDO;
 	return times;
@@ -147,8 +145,8 @@ template<typename Data>
 class Simple : public Manager<Data>, public Data
 {
 protected:
-	void onStore(Data &data) { data = static_cast<Data&>(*this); }
-	void onRestore(const Data &data){ static_cast<Data&>(*this) = data; }
+	Data createUndo() const { return static_cast<Data&>(*this); }
+	void loadUndo(const Data &data){ static_cast<Data&>(*this) = data; }
 };
 }}
 template<typename Data>

@@ -24,13 +24,14 @@ public:
 	}
 
 protected:
-	void onStore(std::filesystem::path &path) {
-		path = createFileName(extension_);
+	std::filesystem::path createUndo() const {
+		auto path = createFileName(extension_);
 		if(isIOEnabled()) {
 			save(ofFilePath::join(directory_.path(), path));
 		}
+		return path;
 	}
-	void onRestore(const std::filesystem::path &path) {
+	void loadUndo(const std::filesystem::path &path) {
 		if(isIOEnabled()) {
 			load(ofFilePath::join(directory_.path(), path));
 		}
