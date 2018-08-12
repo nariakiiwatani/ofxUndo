@@ -10,10 +10,10 @@ class Manager
 public:
 	void store(Data &data);
 	void store();
-	bool undo();
-	bool redo();
-	bool canUndo() const { return getUndoLength() > 0; }
-	bool canRedo() const { return getRedoLength() > 0; }
+	int undo(int times=1);
+	int redo(int times=1);
+	bool canUndo(int times=1, int *maximum=nullptr) const;
+	bool canRedo(int times=1, int *maximum=nullptr) const;
 	
 	void clear();
 	
@@ -61,31 +61,49 @@ void Manager<Data>::store()
 }
 
 template<typename Data>
-bool Manager<Data>::undo()
+int Manager<Data>::undo(int times)
 {
-	if(!canUndo()) return false;
-	if(last_action_ == UNDO) {
-		--current_index_;
+	int maximum = 0;
+	if(!canUndo(times, &maximum)) {
+		return undo(maximum);
 	}
+	current_index_ -= times - (last_action_==UNDO?0:1);
 	auto &data = history_[current_index_-1];
 	onRestore(data);
 	restore_event_.notify(data);
 	last_action_ = UNDO;
-	return true;
+	return times;
 }
 template<typename Data>
-bool Manager<Data>::redo()
+int Manager<Data>::redo(int times)
 {
-	if(!canRedo()) return false;
-	if(last_action_ == REDO) {
-		++current_index_;
+	int maximum = 0;
+	if(!canRedo(times, &maximum)) {
+		return redo(maximum);
 	}
+	current_index_ += times - (last_action_==REDO?0:1);
 	auto &data = history_[current_index_];
 	onRestore(data);
 	restore_event_.notify(data);
 	last_action_ = REDO;
-	return true;
+	return times;
 }
+
+template<typename Data>
+bool Manager<Data>::canUndo(int times, int *maximum) const
+{
+	int length = getUndoLength();
+	if(maximum) *maximum = length;
+	return times <= length;
+}
+template<typename Data>
+bool Manager<Data>::canRedo(int times, int *maximum) const
+{
+	int length = getRedoLength();
+	if(maximum) *maximum = length;
+	return times <= length;
+}
+
 template<typename Data>
 void Manager<Data>::clear()
 {
