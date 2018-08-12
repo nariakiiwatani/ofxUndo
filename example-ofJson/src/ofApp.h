@@ -29,7 +29,7 @@ private:
 			position.set(json["position"]["x"],json["position"]["y"]);
 			size = json["size"];
 		}
-		ofJson createJson() const {
+		ofJson toJson() const {
 			ofJson json;
 			json["position"]["x"] = position.x;
 			json["position"]["y"] = position.y;

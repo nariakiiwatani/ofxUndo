@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxUndo.h"
+#include "ofxUndoSimple.h"
 
 class ofApp : public ofBaseApp{
 	
@@ -22,5 +22,5 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 private:
-	ofxUndo<ofVec2f> position_;
+	ofxUndoSimple<ofVec2f> position_;
 };
