@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxJsonUtils.h"
 #include "ofxUndoJson.h"
 
 class ofApp : public ofBaseApp{
@@ -26,15 +27,10 @@ private:
 		ofVec2f position;
 		float size;
 		void loadJson(const ofJson &json) {
-			position.set(json["position"]["x"],json["position"]["y"]);
-			size = json["size"];
+			ofxJsonUtils::load(json, kv(position), kv(size));
 		}
 		ofJson toJson() const {
-			ofJson json;
-			json["position"]["x"] = position.x;
-			json["position"]["y"] = position.y;
-			json["size"] = size;
-			return json;
+			return ofxJsonUtils::create(kv(position), kv(size));
 		}
 	};
 	ofxUndoJson<MyStruct> undo_;

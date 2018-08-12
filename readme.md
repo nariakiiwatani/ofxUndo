@@ -20,11 +20,7 @@ Extend ofxUndoFile and implement `save/load` functions.
 ### ofxUndoJson
 
 ofxUndoJson makes it easier to store history in `ofJson` format.  
-Declare ofxUndoJson with typename like `ofxUndoJson<ofVec2f>` or `ofxUndoJson<MyStruct>`.  
+Declare ofxUndoJson with typename like `ofxUndoJson<MyStruct>`.  
+Then implement `toJson/loadJson` in `MyStruct`.  
 
-## advanced
-
-Histories are stored in `std::vector` by default.  
-It's also possible to manage them by your own class.  
-See `example-ofJson` and `example-file`.  
-I will update readme for detailed information soon...
+__I strongly recommend to use this class with [@2bbb](https://github.com/2bbb)'s [ofxJsonUtils](https://github.com/2bbb/ofxJsonUtils)__
