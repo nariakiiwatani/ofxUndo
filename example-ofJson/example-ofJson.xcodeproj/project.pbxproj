@@ -9,6 +9,21 @@
 		<string>46</string>
 		<key>objects</key>
 		<dict>
+			<key>596D0896F438D37BA999E808</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxUndoCommand.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxUndo/src/ofxUndoCommand.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>8EBBD8A5C0E33D62407F11C8</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -39,6 +54,21 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>CCFB52D42B9C52B056A65438</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxUndoState.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxUndo/src/ofxUndoState.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>A62B19197C345075BB39E499</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -60,8 +90,10 @@
 				<array>
 					<string>3BF7976499D9EF355813BDF1</string>
 					<string>A62B19197C345075BB39E499</string>
+					<string>CCFB52D42B9C52B056A65438</string>
 					<string>AB59326C8D699DCBAFA1B023</string>
 					<string>8EBBD8A5C0E33D62407F11C8</string>
+					<string>596D0896F438D37BA999E808</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -95,6 +127,21 @@
 				<string>ofxUndoJson.h</string>
 				<key>path</key>
 				<string>../../../addons/ofxUndo/src/ofxUndoJson.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>DB6668F8A1A45BDA018B50DB</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>bbb_json.hpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxJsonUtils/libs/bbb/bbb_json.hpp</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
@@ -227,11 +274,27 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>1545142A203AFEC58216DC08</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>type_traits.hpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils/type_traits.hpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>C4709098A31A15183A03E72F</key>
 			<dict>
 				<key>children</key>
 				<array>
 					<string>79C188A0D0A763A1B7836308</string>
+					<string>1545142A203AFEC58216DC08</string>
 					<string>817089F4BA341F36B202A6A9</string>
 					<string>3F1D42652446AA99CED163B0</string>
 					<string>62E7DF8E328CEEB6DC16BC08</string>
@@ -259,27 +322,12 @@
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>79C188A0D0A763A1B7836308</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>utility.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils/utility.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
 			<key>3D94A3FAE7A0AA4DD0FAAC2B</key>
 			<dict>
 				<key>children</key>
 				<array>
-					<string>C4F87C0D37E0E8C2FFFECA34</string>
 					<string>27DDB179D85402214CB7B90C</string>
+					<string>DB6668F8A1A45BDA018B50DB</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -301,7 +349,7 @@
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>C4F87C0D37E0E8C2FFFECA34</key>
+			<key>79C188A0D0A763A1B7836308</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -310,9 +358,24 @@
 				<key>isa</key>
 				<string>PBXFileReference</string>
 				<key>name</key>
-				<string>json.hpp</string>
+				<string>utility.hpp</string>
 				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json.hpp</string>
+				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils/utility.hpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>B72EB06DDA9EA14A44BD9D87</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxJsonUtilsSetting.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxJsonUtils/src/ofxJsonUtilsSetting.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
@@ -346,6 +409,21 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>FC5C634A4B527258D4D0A96F</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxJsonUtilsCommon.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxJsonUtils/src/ofxJsonUtilsCommon.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>5E130850C993DB5334E7926B</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -358,6 +436,21 @@
 				<string>ofxJsonConvertFunctions.h</string>
 				<key>path</key>
 				<string>../../../addons/ofxJsonUtils/src/ofxJsonConvertFunctions.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>C344995F590F321857E991CD</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxJsonUtilsTypeTraits.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxJsonUtils/src/ofxJsonUtilsTypeTraits.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
@@ -382,9 +475,12 @@
 				<array>
 					<string>67DFCCFFAF7EBB7C98B14C7D</string>
 					<string>CAB32FB6C7A3F99C766D69C1</string>
+					<string>C344995F590F321857E991CD</string>
 					<string>5E130850C993DB5334E7926B</string>
+					<string>FC5C634A4B527258D4D0A96F</string>
 					<string>78AFBACE55CF22134BEE2319</string>
 					<string>AFD594BBDFD8F244AB72B6E4</string>
+					<string>B72EB06DDA9EA14A44BD9D87</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>

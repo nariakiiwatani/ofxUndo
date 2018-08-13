@@ -9,6 +9,21 @@
 		<string>46</string>
 		<key>objects</key>
 		<dict>
+			<key>596D0896F438D37BA999E808</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxUndoCommand.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxUndo/src/ofxUndoCommand.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>8EBBD8A5C0E33D62407F11C8</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -39,6 +54,21 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>CCFB52D42B9C52B056A65438</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxUndoState.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxUndo/src/ofxUndoState.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>A62B19197C345075BB39E499</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -60,8 +90,10 @@
 				<array>
 					<string>3BF7976499D9EF355813BDF1</string>
 					<string>A62B19197C345075BB39E499</string>
+					<string>CCFB52D42B9C52B056A65438</string>
 					<string>AB59326C8D699DCBAFA1B023</string>
 					<string>8EBBD8A5C0E33D62407F11C8</string>
+					<string>596D0896F438D37BA999E808</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
