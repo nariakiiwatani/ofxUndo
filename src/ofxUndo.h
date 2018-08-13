@@ -22,8 +22,8 @@ class Manager
 public:
 	void store(const Data &data);
 	void store();
-	int undo(int times=1);
-	int redo(int times=1);
+	int undo(int times=1, bool step_by_step=true);
+	int redo(int times=1, bool step_by_step=true);
 	bool canUndo(int times=1, int *maximum=nullptr) const;
 	bool canRedo(int times=1, int *maximum=nullptr) const;
 	virtual int getUndoLength() const { return current_index_; }
@@ -87,31 +87,47 @@ void Manager<Data>::store()
 }
 
 template<typename Data>
-int Manager<Data>::undo(int times)
+int Manager<Data>::undo(int times, bool step_by_step)
 {
+	if(times <= 0) return;
 	int maximum = 0;
 	if(!canUndo(times, &maximum)) {
-		return undo(maximum);
+		return undo(maximum, step_by_step);
 	}
-	current_index_ -= times;
-	auto &data = getDataForUndo(current_index_);
-	loadUndo(data);
-	last_action_ = UNDO;
-	undo_event_.notify(data);
+	if(times > 1 && step_by_step) {
+		for(int i = 0; i < times; ++i) {
+			undo(1);
+		}
+	}
+	else {
+		current_index_ -= times;
+		auto &data = getDataForUndo(current_index_);
+		loadUndo(data);
+		last_action_ = UNDO;
+		undo_event_.notify(data);
+	}
 	return times;
 }
 template<typename Data>
-int Manager<Data>::redo(int times)
+int Manager<Data>::redo(int times, bool step_by_step)
 {
+	if(times <= 0) return;
 	int maximum = 0;
 	if(!canRedo(times, &maximum)) {
-		return redo(maximum);
+		return redo(maximum, step_by_step);
 	}
-	current_index_ += times;
-	auto &data = getDataForRedo(current_index_);
-	loadRedo(data);
-	last_action_ = REDO;
-	redo_event_.notify(data);
+	if(times > 1 && step_by_step) {
+		for(int i = 0; i < times; ++i) {
+			redo(1);
+		}
+	}
+	else {
+		current_index_ += times;
+		auto &data = getDataForRedo(current_index_);
+		loadRedo(data);
+		last_action_ = REDO;
+		redo_event_.notify(data);
+	}
 	return times;
 }
 	
