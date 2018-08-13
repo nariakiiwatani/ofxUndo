@@ -20,7 +20,7 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
 	switch(key) {
 		case OF_KEY_RETURN:
-			undo_.store();
+			undo_.store((std::string&)undo_);
 			break;
 		case OF_KEY_LEFT:
 			undo_.undo();

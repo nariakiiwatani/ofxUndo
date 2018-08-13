@@ -6,7 +6,7 @@ void ofApp::setup(){
 	float radius = 100;
 	int div = 5;
 	for(int i = 0; i < div; ++i) {
-		glm::vec2 pos = glm::rotate(glm::vec2(radius,0), ofDegToRad(360)/(float)div*i);
+		glm::vec2 pos = glm::rotate(glm::vec2(0,-radius), ofDegToRad(360)/(float)div*i);
 		polyline_.addVertex(glm::vec3(center+pos,0));
 	}
 	polyline_.close();
