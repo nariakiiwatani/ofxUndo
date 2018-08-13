@@ -24,6 +24,11 @@ Then implement `toJson/loadJson` in `MyStruct`.
 
 __I strongly recommend to use this class with [@2bbb](https://github.com/2bbb)'s [ofxJsonUtils](https://github.com/2bbb/ofxJsonUtils)__
 
+### ofxUndoCommandManager
+
+ofxUndoCommandManager stores history as command data such as diffs or operations.  
+Implement undo/redo members in ofxUndoCommand and pass it to Manager.  
+Since the Manager expects commands as pointers, you can use any class by extending ofxUndoCommand.  
 
 ## Special Thanks
 
