@@ -21,7 +21,6 @@ class Manager
 {
 public:
 	void store(const Data &data);
-	void store();
 	int undo(int times=1, bool step_by_step=true);
 	int redo(int times=1, bool step_by_step=true);
 	bool canUndo(int times=1, int *maximum=nullptr) const;
@@ -38,7 +37,6 @@ public:
 
 	virtual void clearRedo();
 protected:
-	virtual Data createUndo() const { return Data(); }
 	virtual void loadUndo(const Data &data) {}
 	virtual void loadRedo(const Data &data) { loadUndo(data); }
 	std::deque<Data> history_;
@@ -77,13 +75,6 @@ void Manager<Data>::store(const Data &data)
 	current_index_ = history_.size();
 	last_action_ = OTHER;
 	store_event_.notify(data);
-}
-
-template<typename Data>
-void Manager<Data>::store()
-{
-	Data data = createUndo();
-	store(data);
 }
 
 template<typename Data>
