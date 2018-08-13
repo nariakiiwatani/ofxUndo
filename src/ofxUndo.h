@@ -33,12 +33,14 @@ public:
 	void clear();
 	
 	ofEvent<const Data>& storeEvent() { return store_event_; }
-	ofEvent<const Data>& restoreEvent() { return restore_event_; }
+	ofEvent<const Data>& undoEvent() { return undo_event_; }
+	ofEvent<const Data>& redoEvent() { return redo_event_; }
 
 	void clearRedo();
 protected:
 	virtual Data createUndo() const { return Data(); }
 	virtual void loadUndo(const Data &data) {}
+	virtual void loadRedo(const Data &data) { loadUndo(data); }
 	std::deque<Data> history_;
 	std::size_t history_length_limit_=0;
 	std::size_t current_index_;
@@ -48,7 +50,7 @@ protected:
 	Action last_action_ = OTHER;
 
 	ofEvent<const Data> store_event_;
-	ofEvent<const Data> restore_event_;
+	ofEvent<const Data> undo_event_, redo_event_;
 	
 protected:
 	int deleteOldHistory(int length) {
@@ -70,9 +72,9 @@ void Manager<Data>::store(const Data &data)
 		deleteOldHistory(1);
 	}
 	history_.emplace_back(data);
-	store_event_.notify(data);
 	current_index_ = history_.size();
 	last_action_ = OTHER;
+	store_event_.notify(data);
 }
 
 template<typename Data>
@@ -92,8 +94,8 @@ int Manager<Data>::undo(int times)
 	current_index_ -= times - (last_action_==UNDO?0:1);
 	auto &data = history_[current_index_-1];
 	loadUndo(data);
-	restore_event_.notify(data);
 	last_action_ = UNDO;
+	undo_event_.notify(data);
 	return times;
 }
 template<typename Data>
@@ -105,9 +107,9 @@ int Manager<Data>::redo(int times)
 	}
 	current_index_ += times - (last_action_==REDO?0:1);
 	auto &data = history_[current_index_];
-	loadUndo(data);
-	restore_event_.notify(data);
+	loadRedo(data);
 	last_action_ = REDO;
+	redo_event_.notify(data);
 	return times;
 }
 
