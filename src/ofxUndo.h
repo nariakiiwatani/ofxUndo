@@ -26,8 +26,8 @@ public:
 	int redo(int times=1);
 	bool canUndo(int times=1, int *maximum=nullptr) const;
 	bool canRedo(int times=1, int *maximum=nullptr) const;
-	int getUndoLength() const { return current_index_-(last_action_==UNDO?1:0); }
-	int getRedoLength() const { return history_.size()-current_index_-(last_action_==REDO?1:0); }
+	virtual int getUndoLength() const { return current_index_; }
+	virtual int getRedoLength() const { return history_.size()-current_index_; }
 
 	void setHistoryLengthLimit(std::size_t length);
 	void clear();
@@ -36,7 +36,7 @@ public:
 	ofEvent<const Data>& undoEvent() { return undo_event_; }
 	ofEvent<const Data>& redoEvent() { return redo_event_; }
 
-	void clearRedo();
+	virtual void clearRedo();
 protected:
 	virtual Data createUndo() const { return Data(); }
 	virtual void loadUndo(const Data &data) {}
@@ -53,6 +53,8 @@ protected:
 	ofEvent<const Data> undo_event_, redo_event_;
 	
 protected:
+	virtual Data& getDataForUndo(int index)=0;
+	virtual Data& getDataForRedo(int index)=0;
 	int deleteOldHistory(int length) {
 		int result = 0;
 		while(length-->0) {
@@ -91,8 +93,8 @@ int Manager<Data>::undo(int times)
 	if(!canUndo(times, &maximum)) {
 		return undo(maximum);
 	}
-	current_index_ -= times - (last_action_==UNDO?0:1);
-	auto &data = history_[current_index_-1];
+	current_index_ -= times;
+	auto &data = getDataForUndo(current_index_);
 	loadUndo(data);
 	last_action_ = UNDO;
 	undo_event_.notify(data);
@@ -105,14 +107,14 @@ int Manager<Data>::redo(int times)
 	if(!canRedo(times, &maximum)) {
 		return redo(maximum);
 	}
-	current_index_ += times - (last_action_==REDO?0:1);
-	auto &data = history_[current_index_];
+	current_index_ += times;
+	auto &data = getDataForRedo(current_index_);
 	loadRedo(data);
 	last_action_ = REDO;
 	redo_event_.notify(data);
 	return times;
 }
-
+	
 template<typename Data>
 bool Manager<Data>::canUndo(int times, int *maximum) const
 {
@@ -147,8 +149,7 @@ void Manager<Data>::clear()
 }
 template<typename Data>
 void Manager<Data>::clearRedo() {
-	history_.resize(current_index_+(last_action_==REDO?1:0));
-	current_index_ = history_.size();
+	history_.resize(current_index_);
 	last_action_ = OTHER;
 }
 	

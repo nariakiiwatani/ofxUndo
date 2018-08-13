@@ -12,22 +12,24 @@
 
 #pragma once
 
-#include "ofxUndoState.h"
+#include "ofxUndo.h"
 
 namespace ofx { namespace undo {
-template<typename T>
-class Json : public State<ofJson>, public T
+struct Command
+{
+	std::function<void()> undo, redo;
+};
+
+class CommandManager : public Manager<std::shared_ptr<Command>>
 {
 public:
-#ifndef OFXUNDOJSON_NOT_USE_OFXJSONUTILS
-	ofJson createUndo() const { return ofxJsonUtils::convert((T&)*this); }
-	void loadUndo(const ofJson &json) { ofxJsonUtils::parse(json, (T&)*this); }
-#else
-	ofJson createUndo() const { return ((T&)*this).toJson(); }
-	void loadUndo(const ofJson &json) { ((T&)*this).loadJson(json); }
-#endif
+	void loadUndo(const std::shared_ptr<Command> &data) { if(data->undo)data->undo(); }
+	void loadRedo(const std::shared_ptr<Command> &data) { if(data->redo)data->redo(); }
+protected:
+	std::shared_ptr<Command>& getDataForUndo(int index) { return history_[index]; }
+	std::shared_ptr<Command>& getDataForRedo(int index) { return history_[index-1]; }
 };
 }}
 
-template<typename T>
-using ofxUndoJson = ofx::undo::Json<T>;
+using ofxUndoCommand = ofx::undo::Command;
+using ofxUndoCommandManager = ofx::undo::CommandManager;

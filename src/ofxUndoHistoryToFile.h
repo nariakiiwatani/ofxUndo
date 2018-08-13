@@ -12,11 +12,11 @@
 
 #pragma once
 
-#include "ofxUndo.h"
+#include "ofxUndoState.h"
 
 namespace ofx { namespace undo {
 
-class HistoryToFile : public ofx::undo::Manager<std::filesystem::path>
+class HistoryToFile : public State<std::filesystem::path>
 {
 public:
 	void setFileExt(const std::string &ext) { extension_ = ext; }

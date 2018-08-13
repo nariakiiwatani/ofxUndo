@@ -12,11 +12,11 @@
 
 #pragma once
 
-#include "ofxUndo.h"
+#include "ofxUndoState.h"
 
 namespace ofx { namespace undo {
 template<typename Data>
-class Simple : public Manager<Data>, public Data
+class Simple : public State<Data>, public Data
 {
 protected:
 	Data createUndo() const { return static_cast<Data>(*this); }

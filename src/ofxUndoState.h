@@ -12,22 +12,29 @@
 
 #pragma once
 
-#include "ofxUndoState.h"
+#include "ofxUndo.h"
 
 namespace ofx { namespace undo {
-template<typename T>
-class Json : public State<ofJson>, public T
+template<typename Data>
+class State : public Manager<Data>
 {
 public:
-#ifndef OFXUNDOJSON_NOT_USE_OFXJSONUTILS
-	ofJson createUndo() const { return ofxJsonUtils::convert((T&)*this); }
-	void loadUndo(const ofJson &json) { ofxJsonUtils::parse(json, (T&)*this); }
-#else
-	ofJson createUndo() const { return ((T&)*this).toJson(); }
-	void loadUndo(const ofJson &json) { ((T&)*this).loadJson(json); }
-#endif
+	int getRedoLength() const { return Manager<Data>::history_.size()-Manager<Data>::current_index_-1; }
+	void clearRedo() {
+		switch(Manager<Data>::last_action_) {
+			case Manager<Data>::UNDO:
+			case Manager<Data>::REDO:
+				++Manager<Data>::current_index_;
+				break;
+		}
+		Manager<Data>::history_.resize(Manager<Data>::current_index_);
+		Manager<Data>::last_action_ = Manager<Data>::OTHER;
+	}
+protected:
+	Data& getDataForUndo(int index)  { return Manager<Data>::history_[index]; }
+	Data& getDataForRedo(int index) { return Manager<Data>::history_[index]; }
 };
 }}
 
-template<typename T>
-using ofxUndoJson = ofx::undo::Json<T>;
+template<typename Data>
+using ofxUndoState = ofx::undo::State<Data>;
