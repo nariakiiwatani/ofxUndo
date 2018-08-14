@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxUndoCommand.h"
+#include "ofxUndoSimple.h"
 
 class ofApp : public ofBaseApp{
 	
@@ -21,23 +21,7 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+	ofVec2f getUndoStateDescriptor() const { return undo_; }
 private:
-	ofxUndoCommandManager undo_;
-	ofPolyline polyline_;
-	struct PolylineOp {
-		ofPolyline *target;
-		int vertex_index;
-		glm::vec3 pos_from, pos_to;
-		std::shared_ptr<ofxUndoCommand> createUndo() const {
-			auto ret = std::make_shared<ofxUndoCommand>();
-			ofPolyline *p = target;
-			int v = vertex_index;
-			glm::vec3 f = pos_from, t = pos_to;
-			
-			ret->undo = [p,v,f]() { (*p)[v] = f; };
-			ret->redo = [p,v,t]() { (*p)[v] = t; };
-			return ret;
-		}
-	};
-	PolylineOp operation_;
+	ofxUndoSimple<ofVec2f> undo_;
 };

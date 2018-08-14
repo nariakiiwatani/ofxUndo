@@ -26,8 +26,11 @@ private:
 	ofPolyline polyline_;
 	struct PolylineOp {
 		ofPolyline *target;
-		int vertex_index;
+		int vertex_index=0;
 		glm::vec3 pos_from, pos_to;
+		void onStore(const std::shared_ptr<ofxUndoCommand>&) {
+			pos_from = pos_to = (*target)[vertex_index];
+		}
 		std::shared_ptr<ofxUndoCommand> createUndo() const {
 			auto ret = std::make_shared<ofxUndoCommand>();
 			ofPolyline *p = target;
@@ -38,6 +41,7 @@ private:
 			ret->redo = [p,v,t]() { (*p)[v] = t; };
 			return ret;
 		}
+		std::vector<glm::vec3> getUndoStateDescriptor() const { return target->getVertices(); }
 	};
 	PolylineOp operation_;
 };

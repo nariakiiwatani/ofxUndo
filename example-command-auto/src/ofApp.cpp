@@ -13,7 +13,10 @@ void ofApp::setup(){
 	
 	operation_.target = &polyline_;
 	operation_.vertex_index = -1;
+	
+	ofAddListener(undo_.storeEvent(), &operation_, &PolylineOp::onStore);
 	undo_.setUndoCreator(operation_);
+	undo_.enableModifyChecker(operation_);
 }
 
 //--------------------------------------------------------------
@@ -63,7 +66,8 @@ void ofApp::mouseMoved(int x, int y ){
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
 	if(operation_.vertex_index >= 0)  {
-		(*operation_.target)[operation_.vertex_index] = glm::vec3(x,y,0);
+		(*operation_.target)[operation_.vertex_index] =
+		operation_.pos_to = glm::vec3(x,y,0);
 	}
 }
 
@@ -71,7 +75,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mousePressed(int x, int y, int button){
 	for(int i = 0, num = polyline_.size(); i < num; ++i) {
 		if(glm::distance(polyline_[i], glm::vec3(x,y,0)) < 10) {
-			operation_.pos_from = polyline_[i];
+			operation_.pos_from = operation_.pos_to = polyline_[i];
 			operation_.vertex_index = i;
 			break;
 		}
@@ -82,9 +86,7 @@ void ofApp::mousePressed(int x, int y, int button){
 void ofApp::mouseReleased(int x, int y, int button){
 	if(operation_.vertex_index >= 0) {
 		operation_.pos_to = polyline_[operation_.vertex_index];
-		undo_.store();
 	}
-	operation_.vertex_index = -1;
 }
 
 //--------------------------------------------------------------

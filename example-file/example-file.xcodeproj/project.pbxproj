@@ -24,6 +24,21 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>3A91254DC53A232BFDDCDA60</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxUndoModifyChecker.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxUndo/src/ofxUndoModifyChecker.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>8EBBD8A5C0E33D62407F11C8</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -93,6 +108,7 @@
 					<string>CCFB52D42B9C52B056A65438</string>
 					<string>AB59326C8D699DCBAFA1B023</string>
 					<string>8EBBD8A5C0E33D62407F11C8</string>
+					<string>3A91254DC53A232BFDDCDA60</string>
 					<string>596D0896F438D37BA999E808</string>
 				</array>
 				<key>isa</key>

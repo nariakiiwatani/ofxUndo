@@ -146,394 +146,6 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>DB6668F8A1A45BDA018B50DB</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>bbb_json.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/bbb_json.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>4E46916BA00B4A7A8BD3EB14</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>utils.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>42BB3EAB3368043B7C98F513</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>FE921E4A3C8B894297C911DD</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>src</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>797FB5C55BC721BFC7E2CD28</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>42BB3EAB3368043B7C98F513</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>nlohmann_json</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>7EE33BB79A063D7AD2178297</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>797FB5C55BC721BFC7E2CD28</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>libs</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>FE921E4A3C8B894297C911DD</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>json.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json/src/json.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>3654F7F59466507161CB9A7C</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>convert.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils/convert.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>62E7DF8E328CEEB6DC16BC08</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>parse.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils/parse.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>3F1D42652446AA99CED163B0</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>common.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils/common.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>817089F4BA341F36B202A6A9</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>constants.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils/constants.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>1545142A203AFEC58216DC08</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>type_traits.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils/type_traits.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>C4709098A31A15183A03E72F</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>79C188A0D0A763A1B7836308</string>
-					<string>1545142A203AFEC58216DC08</string>
-					<string>817089F4BA341F36B202A6A9</string>
-					<string>3F1D42652446AA99CED163B0</string>
-					<string>62E7DF8E328CEEB6DC16BC08</string>
-					<string>3654F7F59466507161CB9A7C</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>utils</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>27DDB179D85402214CB7B90C</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>C4709098A31A15183A03E72F</string>
-					<string>7EE33BB79A063D7AD2178297</string>
-					<string>4E46916BA00B4A7A8BD3EB14</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>json</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>3D94A3FAE7A0AA4DD0FAAC2B</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>27DDB179D85402214CB7B90C</string>
-					<string>DB6668F8A1A45BDA018B50DB</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>bbb</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>FD8BFC81264625508D93DE86</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>3D94A3FAE7A0AA4DD0FAAC2B</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>libs</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>79C188A0D0A763A1B7836308</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>utility.hpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils/utility.hpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>B72EB06DDA9EA14A44BD9D87</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofxJsonUtilsSetting.h</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/src/ofxJsonUtilsSetting.h</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>AFD594BBDFD8F244AB72B6E4</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofxJsonParseFunctions.h</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/src/ofxJsonParseFunctions.h</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>78AFBACE55CF22134BEE2319</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofxJsonUtils.h</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/src/ofxJsonUtils.h</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>FC5C634A4B527258D4D0A96F</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofxJsonUtilsCommon.h</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/src/ofxJsonUtilsCommon.h</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>5E130850C993DB5334E7926B</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofxJsonConvertFunctions.h</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/src/ofxJsonConvertFunctions.h</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>C344995F590F321857E991CD</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofxJsonUtilsTypeTraits.h</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/src/ofxJsonUtilsTypeTraits.h</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>CAB32FB6C7A3F99C766D69C1</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofJson_compatible.h</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/src/ofJson_compatible.h</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>491F50E842385CA9DD42433A</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>67DFCCFFAF7EBB7C98B14C7D</string>
-					<string>CAB32FB6C7A3F99C766D69C1</string>
-					<string>C344995F590F321857E991CD</string>
-					<string>5E130850C993DB5334E7926B</string>
-					<string>FC5C634A4B527258D4D0A96F</string>
-					<string>78AFBACE55CF22134BEE2319</string>
-					<string>AFD594BBDFD8F244AB72B6E4</string>
-					<string>B72EB06DDA9EA14A44BD9D87</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>src</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>2354AB7B3AA36643D7807748</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>491F50E842385CA9DD42433A</string>
-					<string>FD8BFC81264625508D93DE86</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>ofxJsonUtils</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>67DFCCFFAF7EBB7C98B14C7D</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofxJsonify.h</string>
-				<key>path</key>
-				<string>../../../addons/ofxJsonUtils/src/ofxJsonify.h</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
 			<key>6948EE371B920CB800B5AC1A</key>
 			<dict>
 				<key>children</key>
@@ -665,14 +277,6 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
-						<string>../../../addons/ofxJsonUtils/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json/src</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils</string>
-						<string>../../../addons/ofxJsonUtils/src</string>
 						<string>../../../addons/ofxUndo/src</string>
 					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
@@ -734,14 +338,6 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
-						<string>../../../addons/ofxJsonUtils/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json/src</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils</string>
-						<string>../../../addons/ofxJsonUtils/src</string>
 						<string>../../../addons/ofxUndo/src</string>
 					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
@@ -784,7 +380,6 @@ fi
 			<dict>
 				<key>children</key>
 				<array>
-					<string>2354AB7B3AA36643D7807748</string>
 					<string>44EBA3B5C027631D6029B264</string>
 				</array>
 				<key>isa</key>
@@ -941,14 +536,6 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
-						<string>../../../addons/ofxJsonUtils/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json/src</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils</string>
-						<string>../../../addons/ofxJsonUtils/src</string>
 						<string>../../../addons/ofxUndo/src</string>
 					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
@@ -1008,14 +595,6 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
-						<string>../../../addons/ofxJsonUtils/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json/src</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils</string>
-						<string>../../../addons/ofxJsonUtils/src</string>
 						<string>../../../addons/ofxUndo/src</string>
 					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
@@ -1113,7 +692,7 @@ fi
 				<key>isa</key>
 				<string>PBXNativeTarget</string>
 				<key>name</key>
-				<string>example-ofJson</string>
+				<string>example-command-auto</string>
 				<key>productName</key>
 				<string>myOFApp</string>
 				<key>productReference</key>
@@ -1130,7 +709,7 @@ fi
 				<key>isa</key>
 				<string>PBXFileReference</string>
 				<key>path</key>
-				<string>example-ofJsonDebug.app</string>
+				<string>example-command-autoDebug.app</string>
 				<key>sourceTree</key>
 				<string>BUILT_PRODUCTS_DIR</string>
 			</dict>
@@ -1159,14 +738,6 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
-						<string>../../../addons/ofxJsonUtils/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json/src</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils</string>
-						<string>../../../addons/ofxJsonUtils/src</string>
 						<string>../../../addons/ofxUndo/src</string>
 					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
@@ -1213,14 +784,6 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
-						<string>../../../addons/ofxJsonUtils/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/libs/nlohmann_json/src</string>
-						<string>../../../addons/ofxJsonUtils/libs/bbb/json/utils</string>
-						<string>../../../addons/ofxJsonUtils/src</string>
 						<string>../../../addons/ofxUndo/src</string>
 					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
