@@ -13,6 +13,7 @@
 #pragma once
 
 #include "ofEvents.h"
+#include "ofxUndoModifyChecker.h"
 
 namespace ofx { namespace undo {
 
@@ -20,13 +21,19 @@ template<typename Data>
 class Manager
 {
 public:
-	void store(const Data &data);
+	Manager() {
+		setUndoCreator(*this);
+	}
+	void store() { store(create_undo_()); }
 	int undo(int times=1, bool step_by_step=true);
 	int redo(int times=1, bool step_by_step=true);
 	bool canUndo(int times=1, int *maximum=nullptr) const;
 	bool canRedo(int times=1, int *maximum=nullptr) const;
 	virtual int getUndoLength() const { return current_index_; }
 	virtual int getRedoLength() const { return history_.size()-current_index_; }
+	
+	template<typename T>
+	void setUndoCreator(T &t) { create_undo_ = [&]() { return t.createUndo(); }; }
 
 	void setHistoryLengthLimit(std::size_t length);
 	void clear();
@@ -36,9 +43,21 @@ public:
 	ofEvent<const Data>& redoEvent() { return redo_event_; }
 
 	virtual void clearRedo();
+	
+	template<typename Context, typename Descriptor=decltype(std::declval<Context>().getUndoStateDescriptor())>
+	void enableModifyChecker(Context &context, float check_interval_in_seconds=1);
+	void enableModifyChecker(float check_interval_in_seconds=1) {
+		enableModifyChecker(*this, check_interval_in_seconds);
+	}
+	void disableAutoStore() { modify_checker_.reset(); }
+	virtual Data getUndoStateDescriptor() const { return create_undo_(); }
 protected:
+	std::function<Data()> create_undo_;
+	virtual Data createUndo() const { return Data(); }
+	void store(const Data &data);
 	virtual void loadUndo(const Data &data) {}
 	virtual void loadRedo(const Data &data) { loadUndo(data); }
+
 	std::deque<Data> history_;
 	std::size_t history_length_limit_=0;
 	std::size_t current_index_;
@@ -49,6 +68,8 @@ protected:
 
 	ofEvent<const Data> store_event_;
 	ofEvent<const Data> undo_event_, redo_event_;
+	
+	std::shared_ptr<ModifyChecker_> modify_checker_;
 	
 protected:
 	virtual Data& getDataForUndo(int index)=0;
@@ -71,10 +92,14 @@ void Manager<Data>::store(const Data &data)
 	if(history_length_limit_ > 0 && history_.size() == history_length_limit_) {
 		deleteOldHistory(1);
 	}
+	clearRedo();
 	history_.emplace_back(data);
 	current_index_ = history_.size();
 	last_action_ = OTHER;
 	store_event_.notify(data);
+	if(modify_checker_) {
+		modify_checker_->updateDescriptor();
+	}
 }
 
 template<typename Data>
@@ -97,6 +122,9 @@ int Manager<Data>::undo(int times, bool step_by_step)
 		last_action_ = UNDO;
 		undo_event_.notify(data);
 	}
+	if(modify_checker_) {
+		modify_checker_->updateDescriptor();
+	}
 	return times;
 }
 template<typename Data>
@@ -118,6 +146,9 @@ int Manager<Data>::redo(int times, bool step_by_step)
 		loadRedo(data);
 		last_action_ = REDO;
 		redo_event_.notify(data);
+	}
+	if(modify_checker_) {
+		modify_checker_->updateDescriptor();
 	}
 	return times;
 }
@@ -153,11 +184,22 @@ void Manager<Data>::clear()
 	history_.clear();
 	current_index_ = 0;
 	last_action_ = OTHER;
+	if(modify_checker_) {
+		modify_checker_->updateDescriptor();
+	}
 }
 template<typename Data>
 void Manager<Data>::clearRedo() {
 	history_.resize(current_index_);
 	last_action_ = OTHER;
 }
-	
+
+template<typename Data>
+template<typename Context, typename Descriptor>
+void Manager<Data>::enableModifyChecker(Context &context, float check_interval_in_seconds) {
+	modify_checker_ = std::make_shared<ModifyChecker<Context, Descriptor>>(context);
+	modify_checker_->setInterval(check_interval_in_seconds);
+	ofAddListener(modify_checker_->onModified(), this, static_cast<void(Manager::*)()>(&Manager::store));
+	modify_checker_->enable();
+}
 }}

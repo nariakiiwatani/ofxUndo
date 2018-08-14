@@ -18,8 +18,6 @@ namespace ofx { namespace undo {
 template<typename Data>
 class Simple : public State<Data>, public Data
 {
-public:
-	void store() { State<Data>::store(createUndo()); }
 protected:
 	Data createUndo() const { return static_cast<Data>(*this); }
 	void loadUndo(const Data &data){ static_cast<Data&>(*this) = data; }
