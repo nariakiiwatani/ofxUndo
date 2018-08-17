@@ -105,7 +105,7 @@ void Manager<Data>::store(const Data &data)
 template<typename Data>
 int Manager<Data>::undo(int times, bool step_by_step)
 {
-	if(times <= 0) return;
+	if(times <= 0) return 0;
 	int maximum = 0;
 	if(!canUndo(times, &maximum)) {
 		return undo(maximum, step_by_step);
@@ -130,7 +130,7 @@ int Manager<Data>::undo(int times, bool step_by_step)
 template<typename Data>
 int Manager<Data>::redo(int times, bool step_by_step)
 {
-	if(times <= 0) return;
+	if(times <= 0) return 0;
 	int maximum = 0;
 	if(!canRedo(times, &maximum)) {
 		return redo(maximum, step_by_step);
