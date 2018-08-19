@@ -12,7 +12,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofDrawCircle(position_, 10);
+	ofDrawCircle((ofVec2f&)position_, 10);
 }
 
 //--------------------------------------------------------------
@@ -37,7 +37,7 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	position_.set(x,y);
+	((ofVec2f&)position_).set(x,y);
 	position_.clearRedo();
 }
 

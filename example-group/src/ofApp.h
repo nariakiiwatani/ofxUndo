@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxUndoGroup.h"
 #include "ofxUndoSimple.h"
 
 class ofApp : public ofBaseApp{
@@ -21,7 +22,7 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
-	ofVec2f getUndoStateDescriptor() const { return (ofVec2f&)undo_; }
 private:
-	ofxUndoSimple<ofVec2f> undo_;
+	ofxUndoGroup group_;
+	ofxUndoSimple<int> value_[2];
 };

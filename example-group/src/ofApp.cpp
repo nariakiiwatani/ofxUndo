@@ -2,8 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	((ofVec2f&)undo_).set(0,0);
-	undo_.enableModifyChecker(*this);
+	group_.add(value_[0]);
+	group_.add(value_[1]);
 }
 
 //--------------------------------------------------------------
@@ -13,20 +13,20 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofDrawCircle((ofVec2f&)undo_, 10);
+	float w = ofGetWidth()/2;
+	for(int i = 0; i < 2; ++i) {
+		ofDrawRectangle(i*w,0,w,value_[i]);
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 	switch(key) {
 		case OF_KEY_LEFT:
-			undo_.undo();
+			group_.undo();
 			break;
 		case OF_KEY_RIGHT:
-			undo_.redo();
-			break;
-		case OF_KEY_RETURN:
-			undo_.clear();
+			group_.redo();
 			break;
 	}
 }
@@ -38,7 +38,7 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	((ofVec2f&)undo_).set(x,y);
+
 }
 
 //--------------------------------------------------------------
@@ -48,7 +48,9 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+	int index = x < ofGetWidth()/2?0:1;
+	value_[index] = y;
+	value_[index].store();
 }
 
 //--------------------------------------------------------------
