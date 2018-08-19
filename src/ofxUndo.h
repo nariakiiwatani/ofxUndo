@@ -21,6 +21,7 @@ template<typename Data>
 class Manager
 {
 public:
+	using DataType = Data;
 	Manager() {
 		setUndoCreator(*this);
 	}
@@ -96,7 +97,7 @@ void Manager<Data>::store(const Data &data)
 	history_.emplace_back(data);
 	current_index_ = history_.size();
 	last_action_ = OTHER;
-	store_event_.notify(data);
+	store_event_.notify(this, data);
 	if(modify_checker_) {
 		modify_checker_->updateDescriptor();
 	}
@@ -120,7 +121,7 @@ int Manager<Data>::undo(int times, bool step_by_step)
 		auto &data = getDataForUndo(current_index_);
 		loadUndo(data);
 		last_action_ = UNDO;
-		undo_event_.notify(data);
+		undo_event_.notify(this, data);
 	}
 	if(modify_checker_) {
 		modify_checker_->updateDescriptor();
@@ -145,7 +146,7 @@ int Manager<Data>::redo(int times, bool step_by_step)
 		auto &data = getDataForRedo(current_index_);
 		loadRedo(data);
 		last_action_ = REDO;
-		redo_event_.notify(data);
+		redo_event_.notify(this, data);
 	}
 	if(modify_checker_) {
 		modify_checker_->updateDescriptor();
