@@ -16,11 +16,16 @@
 
 namespace ofx { namespace undo {
 template<typename Data>
-class Simple : public State<Data>, public Data
+class Simple : public State<Data>
 {
+public:
+	operator Data&() { return data_; }
+	Data& operator=(const Data &data) { return data_ = data; }
 protected:
-	Data createUndo() const { return static_cast<Data>(*this); }
-	void loadUndo(const Data &data){ static_cast<Data&>(*this) = data; }
+	Data createUndo() const { return data_; }
+	void loadUndo(const Data &data){ data_ = data; }
+private:
+	Data data_;
 };
 }}
 
