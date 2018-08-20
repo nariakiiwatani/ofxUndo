@@ -30,6 +30,11 @@ ofxUndoCommandManager stores history as command data such as diffs or operations
 Implement undo/redo members in ofxUndoCommand and pass it to Manager.  
 Since the Manager expects commands as pointers, you can use any class by extending ofxUndoCommand.  
 
+### ofxUndoGroup
+
+With ofxUndoGroup, you can bind multiple ofxUndo-instances together.  
+__NOTICE: Don't undo/redo child instances directly while they belong to any group.__
+
 ## Special Thanks
 
 - [@2bbb](https://github.com/2bbb)
