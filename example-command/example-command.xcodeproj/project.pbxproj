@@ -69,6 +69,21 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>01BF645D8D125A7C804E0C9C</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxUndoManager.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxUndo/src/ofxUndoManager.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>C6CD6D08DB9109892BC7E8D4</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -81,6 +96,21 @@
 				<string>ofxUndoGroup.h</string>
 				<key>path</key>
 				<string>../../../addons/ofxUndo/src/ofxUndoGroup.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>2E45125EBC7B453DBE4E99B5</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxUndoRef.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxUndo/src/ofxUndoRef.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
@@ -121,7 +151,9 @@
 					<string>3BF7976499D9EF355813BDF1</string>
 					<string>A62B19197C345075BB39E499</string>
 					<string>CCFB52D42B9C52B056A65438</string>
+					<string>2E45125EBC7B453DBE4E99B5</string>
 					<string>C6CD6D08DB9109892BC7E8D4</string>
+					<string>01BF645D8D125A7C804E0C9C</string>
 					<string>AB59326C8D699DCBAFA1B023</string>
 					<string>8EBBD8A5C0E33D62407F11C8</string>
 					<string>3A91254DC53A232BFDDCDA60</string>
