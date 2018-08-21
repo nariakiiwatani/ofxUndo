@@ -12,7 +12,8 @@
 
 #pragma once
 
-#include "ofxUndo.h"
+#include "ofxUndoManager.h"
+#include <functional>
 
 namespace ofx { namespace undo {
 struct Command

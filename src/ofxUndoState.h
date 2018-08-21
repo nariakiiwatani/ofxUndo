@@ -12,7 +12,7 @@
 
 #pragma once
 
-#include "ofxUndo.h"
+#include "ofxUndoManager.h"
 
 namespace ofx { namespace undo {
 template<typename Data>
