@@ -67,44 +67,45 @@ void ofApp::drawScene()
 
 	//debug
 
-	//display the parameters values:
 	string str;
 	int x = gui.getPosition().x + 15;
 	int y = gui.getPosition().y + gui.getHeight() + 60;
 	int pad = 20;
 	int i = 0;
+
+	//display the parameters values:
 	str = "> ofParameterGroup\n";
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "fill       : " + ofToString(fill);
+	str = "fill        : " + ofToString(fill);
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "lineWidth  : " + ofToString(lineWidth);
+	str = "lineWidth   : " + ofToString(lineWidth);
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "color      : " + ofToString(color);
+	str = "color       : " + ofToString(color);
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "shapeType  : " + ofToString(shapeType);
+	str = "shapeType   : " + ofToString(shapeType);
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "numShapes  : " + ofToString(numShapes);
+	str = "numShapes   : " + ofToString(numShapes);
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "separation : " + ofToString(separation);
+	str = "separation  : " + ofToString(separation);
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "shapeSide  : " + ofToString(shapeSide);
+	str = "shapeSide   : " + ofToString(shapeSide);
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++); i++;
-
+	
 	//help info:
 	str = "> KEYS";
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "SPACE      : RANDOMIZE SCENE + STORE";
+	str = "SPACE       : RANDOMIZE SCENE + STORE";
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "RETURN     : STORE";
+	str = "RETURN      : STORE";
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "LEFT/RIGHT : BROWSE UNDO HISTORY";
+	str = "LEFT/RIGHT  : BROWSE UNDO HISTORY";
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++); i++;
 	//display undo history info:
 	str = "> UNDO HISTORY";
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "UNDO LENGHT:" + ofToString(parameterString.getUndoLength());
+	str = "UNDO LENGHT : " + ofToString(parameterString.getUndoLength());
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++);
-	str = "REDO LENGHT:" + ofToString(parameterString.getRedoLength());
+	str = "REDO LENGHT : " + ofToString(parameterString.getRedoLength());
 	ofDrawBitmapStringHighlight(str, x, y + pad * i++); i++;
 	//descriptor content
 	str = "> DESCRIPTOR";
