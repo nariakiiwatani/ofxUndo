@@ -1,5 +1,17 @@
 # ofxUndo
 
+
+** NOTE by @moebiusSurfing:**  
+
+- About THIS FORK: Added example-ofParameterGroup that handles an ofParameterGroup filled with ofParameters.  
+
+![Alt text](/screenshot_example-ofParameterGroup_1.PNG?raw=true "screenshot_example-ofParameterGroup_1.PNG")  
+![Alt text](/screenshot_example-ofParameterGroup_2.PNG?raw=true "screenshot_example-ofParameterGroup_2.PNG")
+
+
+---------------------------------------- 
+
+
 undo/redo manager for openFrameworks
 
 ## Usage
