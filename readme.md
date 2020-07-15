@@ -1,11 +1,12 @@
 # ofxUndo
 
 
-** NOTE by @moebiusSurfing:  
+## NOTE by @moebiusSurfing:  
 
 **About THIS FORK:**  
 
-Added `example-ofParameterGroup` that handles an `ofParameterGroup` filled with `ofParameters`. Testing scene included. 
+Added `example-ofParameterGroup` that handles an `ofParameterGroup` filled with `ofParameters`.  
+Testing scene included. 
 
 ![Alt text](/screenshot_example-ofParameterGroup_1.PNG?raw=true "screenshot_example-ofParameterGroup_1.PNG")  
 
