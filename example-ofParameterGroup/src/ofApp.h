@@ -10,17 +10,10 @@ class ofApp : public ofBaseApp {
 
 public:
 	void setup();
-	void update();
 	void draw();
 	void keyPressed(int key);
 
 private:
-
-	ofxPanel gui;
-	
-	void drawScene();
-	void randomizeScene();
-
 
 	//ofParameterGroup
 	ofParameterGroup params;
@@ -33,9 +26,13 @@ private:
 	ofParameter<int> separation;
 	ofParameter<int> shapeSide;
 
-	ofxUndoSimple<std::string> parameterString;
+	ofxPanel gui;
 	
-	ofXml parameterXml;
+	void drawScene();
+	void randomizeScene();
+
+	ofxUndoSimple<std::string> undoStringParams;
+	ofXml xmlParams;
 	void refreshParams();
 	void storeParams();
 };
