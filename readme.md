@@ -33,7 +33,12 @@ Since the Manager expects commands as pointers, you can use any class by extendi
 ### ofxUndoGroup
 
 With ofxUndoGroup, you can bind multiple ofxUndo-instances together.  
-__NOTICE: Don't undo/redo child instances directly while they belong to any group.__
+__NOTICE: Don't undo/redo child instances directly while they belong to any group.__  
+
+### example-ofParameterGroup
+
+Handles an `ofParameterGroup` filled with `ofParameters`.  
+Included testing scene.  
 
 ## Special Thanks
 
