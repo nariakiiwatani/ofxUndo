@@ -26,6 +26,7 @@ public:
 		setUndoCreator(*this);
 	}
 	void store() { store(create_undo_()); }
+	void store(const Data &data);
 	int undo(int times=1, bool step_by_step=true);
 	int redo(int times=1, bool step_by_step=true);
 	bool canUndo(int times=1, int *maximum=nullptr) const;
@@ -55,7 +56,6 @@ public:
 protected:
 	std::function<Data()> create_undo_;
 	virtual Data createUndo() const { return Data(); }
-	void store(const Data &data);
 	virtual void loadUndo(const Data &data) {}
 	virtual void loadRedo(const Data &data) { loadUndo(data); }
 
