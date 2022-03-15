@@ -27,6 +27,7 @@ public:
 	}
 	void store() { store(create_undo_()); }
 	void store(const Data &data);
+	bool isModified();	// need modify checker
 	int undo(int times=1, bool step_by_step=true);
 	int redo(int times=1, bool step_by_step=true);
 	bool canUndo(int times=1, int *maximum=nullptr) const;
@@ -38,6 +39,7 @@ public:
 	void setUndoCreator(T &t) { create_undo_ = [&]() { return t.createUndo(); }; }
 
 	void setHistoryLengthLimit(std::size_t length);
+	std::size_t getHistoryLengthLimit() const { return history_length_limit_; }
 	void clear();
 	
 	ofEvent<const Data>& storeEvent() { return store_event_; }
@@ -101,6 +103,12 @@ void Manager<Data>::store(const Data &data)
 	if(modify_checker_) {
 		modify_checker_->updateDescriptor();
 	}
+}
+
+template<typename Data>
+bool Manager<Data>::isModified()
+{
+	return modify_checker_ && modify_checker_->check();
 }
 
 template<typename Data>
@@ -198,6 +206,10 @@ void Manager<Data>::clearRedo() {
 template<typename Data>
 template<typename Context, typename Descriptor>
 void Manager<Data>::enableModifyChecker(Context &context, float check_interval_in_seconds) {
+	if(modify_checker_) {
+		ofRemoveListener(modify_checker_->onModified(), this, static_cast<void(Manager::*)()>(&Manager::store));
+		modify_checker_->disable();
+	}
 	modify_checker_ = std::make_shared<ModifyChecker<Context, Descriptor>>(context);
 	modify_checker_->setInterval(check_interval_in_seconds);
 	ofAddListener(modify_checker_->onModified(), this, static_cast<void(Manager::*)()>(&Manager::store));

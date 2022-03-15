@@ -35,6 +35,7 @@ public:
 	void setInterval(float seconds) { check_interval_millis_ = seconds*1000; }
 	ofEvent<void>& onModified() { return modified_event_; }
 	virtual void updateDescriptor()=0;
+	virtual bool check()=0;
 protected:
 	void frameUpdate(ofEventArgs&) {
 		auto now = std::chrono::system_clock::now();
@@ -49,7 +50,6 @@ protected:
 	std::size_t check_interval_millis_;
 	bool is_enabled_=false;
 	ofEvent<void> modified_event_;
-	virtual bool check()=0;
 };
 template<typename Context, typename Descriptor>
 class ModifyChecker : public ModifyChecker_
@@ -61,7 +61,6 @@ public:
 	void updateDescriptor() {
 		descripter_ = context_.getUndoStateDescriptor();
 	}
-protected:
 	bool check() {
 		auto desc = context_.getUndoStateDescriptor();
 		if(desc != descripter_) {
@@ -70,6 +69,7 @@ protected:
 		}
 		return false;
 	}
+protected:
 	Context &context_;
 	Descriptor descripter_;
 };
